@@ -3,9 +3,9 @@
    1. ~;;~, evaluate an expression
    2. function args, separated by spaces
    3. allows to place underscore in the middle of numeric literals
-   #+BEGIN_SRC ocaml
-    30_000_000 / 300_000;;
-   #+END_SRC
+    #+BEGIN_SRC ocaml
+	30_000_000 / 300_000;;
+    #+END_SRC
    4. distinguish between ~float~ and ~int~ 
    5. ~let~ binding
    #+BEGIN_SRC ocaml
