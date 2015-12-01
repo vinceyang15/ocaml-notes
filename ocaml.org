@@ -1,0 +1,16 @@
+* Real World Ocaml - Chapter 1
+** Calculator
+*** ~;;~, evaluate an expression
+*** function args, separated by spaces
+*** allows to place underscore in the middle of numeric literals
+#+BEGIN_SRC ocaml
+30_000_000 / 300_000;;
+#+END_SRC
+*** distinguish between ~float~ and ~int~ 
+
+*** ~let~ binding
+#+BEGIN_SRC ocaml
+let x = 4 + 3;;
+let y = x + x;;
+#+END_SRC
+
