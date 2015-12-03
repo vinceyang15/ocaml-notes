@@ -1,6 +1,6 @@
 * Real World Ocaml - Chapter 1
 ** Calculator
-   1. ~;;~, evaluate an expression
+   1. ~;;~ evaluate an expression
    2. function args, separated by spaces
    3. allows to place underscore in the middle of numeric literals
     #+BEGIN_SRC ocaml
@@ -12,4 +12,11 @@
     let x = 4 + 3;;
     let y = x + x;;
     #+END_SRC
+   6. *variables* start with [a-z_] by [a-zA-Z0-9_']
 
+** Functions and Type Inference
+   1. ~let~ define functions
+      #+BEGIN_SRC ocaml
+      let square x = x * x ;;
+      #+END_SRC
+    
