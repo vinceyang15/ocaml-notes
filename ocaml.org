@@ -19,4 +19,13 @@
       #+BEGIN_SRC ocaml
       let square x = x * x ;;
       #+END_SRC
+      - first identifier after ~let~, function name
+      - each subsequent, argument to function
+      - ~int -> int~ function type, takes an ~int~ returns an ~int~
+   2. type inference
+      #+BEGIN_SRC ocaml
+      let ratio x y = Float.of_int x /. Float.of_int y ;;
+      #+END_SRC
+      - ~int -> int -> float~
+   
     
