@@ -25,17 +25,18 @@
    2. function types
       - ~ratio~ 
 	#+BEGIN_SRC ocaml
-          let ratio x y =
-            Float.of_int x /. Float.of_int y
-          ;;
+	let ratio x y =
+	  Float.of_int x /. Float.of_int y
+	;;
 	#+END_SRC
         - function type: ~int -> int -> float~
+
       - ~sum_if_true~
 	#+BEGIN_SRC ocaml
-          let sum_if_true test first second =
-            (if test first then first else 0)
-            + (if test second then second else 0)
-          ;;
+        let sum_if_true test first second =
+          (if test first then first else 0)
+          + (if test second then second else 0)
+        ;;
 	#+END_SRC
 	- function type: ~(int -> bool) -> int -> int -> int~ 
 
