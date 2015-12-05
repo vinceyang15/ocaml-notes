@@ -24,6 +24,7 @@
       - ~int -> int~ function type, takes an ~int~ returns an ~int~
 
    2. function types
+      
       - ~ratio~ function
 	#+BEGIN_SRC ocaml
           let ratio x y =
