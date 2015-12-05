@@ -23,6 +23,12 @@
       - each subsequent, argument to function
       - ~int -> int~ function type, takes an ~int~ returns an ~int~
    2. function types
+      #+BEGIN_SRC ocaml
+        let ratio x y =
+          Float.of_int x /. Float.of_int y
+        ;;
+          
+      #+END_SRC
       - ~ratio~ function
 	#+BEGIN_SRC ocaml
           let ratio x y =
