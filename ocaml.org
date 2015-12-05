@@ -31,13 +31,7 @@
              
 	 #+END_SRC
 
-      - ~ratio~ function
-	#+BEGIN_SRC ocaml
-          let ratio x y =
-            Float.of_int x /. Float.of_int y
-          ;;
-	#+END_SRC
-
+      2. ~ratio~ function
 	#+BEGIN_SRC ocaml
           let sum_if_true test first second =
             (if test first then first else 0)
