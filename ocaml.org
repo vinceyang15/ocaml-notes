@@ -29,15 +29,13 @@
             Float.of_int x /. Float.of_int y
           ;;
 	#+END_SRC
-        - function type: ~int -> int -> float~
       - ~sum_if_true~
 	#+BEGIN_SRC ocaml
-        let sum_if_true test first second =
-          (if test first then first else 0)
-          + (if test second then second else 0)
-        ;;
+          let sum_if_true test first second =
+            (if test first then first else 0)
+            + (if test second then second else 0)
+          ;;
 	#+END_SRC
-	- function type: ~(int -> bool) -> int -> int -> int~ 
 *** Type Inference
     1. /type inference/ type of an expression inferred from the available type information about the component of the expression
    
