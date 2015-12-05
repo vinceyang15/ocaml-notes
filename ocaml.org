@@ -15,29 +15,28 @@
    6. *variables* start with [a-z_] by [a-zA-Z0-9_']
 
 ** Functions and Type Inference
-   1. ~let~ define functions
-      #+BEGIN_SRC ocaml
-        let square x = x * x ;;
-      #+END_SRC
-      - first identifier after ~let~, function name
-      - each subsequent, argument to function
-      - ~int -> int~ function type, takes an ~int~ returns an ~int~
-   2. function types
-      1. ~ratio~
-         #+BEGIN_SRC ocaml
-           let ratio x y =
-             Float.of_int x /. Float.of_int y
-           ;;
-             
-         #+END_SRC
+  1. ~let~ define functions
+     #+BEGIN_SRC ocaml
+       let square x = x * x ;;
+     #+END_SRC
+     - first identifier after ~let~, function name
+     - each subsequent, argument to function
+     - ~int -> int~ function type, takes an ~int~ returns an ~int~
+  2. function types
+     + ~ratio~
+       #+BEGIN_SRC ocaml
+         let ratio x y =
+           Float.of_int x /. Float.of_int y
+         ;;
+       #+END_SRC 
 
-      2. ~ratio~ function
-         #+BEGIN_SRC ocaml
-          let sum_if_true test first second =
-            (if test first then first else 0)
-            + (if test second then second else 0)
-          ;;
-         #+END_SRC
+     + ~ratio~ function
+       #+BEGIN_SRC ocaml
+         let sum_if_true test first second =
+           (if test first then first else 0)
+           + (if test second then second else 0)
+         ;;
+       #+END_SRC
 *** Type Inference
     1. /type inference/ type of an expression inferred from the available type information about the component of the expression
    
