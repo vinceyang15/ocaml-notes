@@ -30,12 +30,7 @@
            ;;
              
 	 #+END_SRC
-      #+BEGIN_SRC ocaml
-      let ratio x y =
-      Float.of_int x /. Float.of_int y
-      ;;
-          
-      #+END_SRC
+
       - ~ratio~ function
 	#+BEGIN_SRC ocaml
           let ratio x y =
