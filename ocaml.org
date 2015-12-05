@@ -24,20 +24,20 @@
       - ~int -> int~ function type, takes an ~int~ returns an ~int~
    2. function types
       1. ~ratio~
-	 #+BEGIN_SRC ocaml
+         #+BEGIN_SRC ocaml
            let ratio x y =
              Float.of_int x /. Float.of_int y
            ;;
              
-	 #+END_SRC
+         #+END_SRC
 
       2. ~ratio~ function
-	#+BEGIN_SRC ocaml
+         #+BEGIN_SRC ocaml
           let sum_if_true test first second =
             (if test first then first else 0)
             + (if test second then second else 0)
           ;;
-	#+END_SRC
+         #+END_SRC
 *** Type Inference
     1. /type inference/ type of an expression inferred from the available type information about the component of the expression
    
