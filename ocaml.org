@@ -19,9 +19,9 @@
      #+BEGIN_SRC ocaml
        let square x = x * x ;;
      #+END_SRC
-     - first identifier after ~let~, function name
-     - each subsequent, argument to function
-     - ~int -> int~ function type, takes an ~int~ returns an ~int~
+     * first identifier after ~let~, function name
+     * each subsequent, argument to function
+     * ~int -> int~ function type, takes an ~int~ returns an ~int~
   2. function types
      + ~ratio~ :: type ~int -> int -> float~
        #+BEGIN_SRC ocaml
@@ -39,5 +39,85 @@
        #+END_SRC
 
 *** Type Inference
-   * /type inference/ type of an expression inferred from the available type information about the component of the expression
-   * 
+   * /type inference/ :: type of an expression inferred from the available type information about the component of the expression
+   * explicit type annotation
+     #+BEGIN_SRC ocaml
+       let sum_if_true (test: int -> bool) (x : int) (y : int) : int =
+         (if test x then x else 0)
+         + (if test y then y else 0)
+       ;;
+     #+END_SRC
+
+*** Inferring Generic Types
+    * /Generic Type/ not enought information to determine the concrete type
+      #+BEGIN_SRC ocaml
+        let first_if_true text x y =
+          if test x then x else y
+        ;;
+      #+END_SRC
+      - ~('a -> bool) -> 'a -> 'a -> 'a~
+      - /type variable/ ~'a~ type is generic,
+      - /parametric polymorphism/ however three args of type ~'a~ must be the same
+
+** Tuples, Lists, Options, and Pattern Matching
+
+*** Tuples
+    * ordered collection of values
+    * values can be of different type
+    #+BEGIN_SRC ocaml
+      let a_tuple = (3,"three");;
+      let another_tuple = (3,"four",5.);;
+    #+END_SRC
+    * *pattern matching* syntax, extract component
+      #+BEGIN_SRC ocaml
+        let (x,y) = a_tuple;;
+      #+END_SRC
+    * *pattern matching* in function arguments
+      #+BEGIN_SRC ocaml
+        let distance (x1,y1) (x2,y2) =
+          sqrt ((x1 -. x2) ** 2. +. (y1 -. y2) ** 2.)
+        ;;
+      #+END_SRC
+      - ~**~ raise a floating-point number to a power
+      - type: ~float * float -> float * float -> float~, ~*~ corresponds to Cartesian product
+
+*** Lists
+    * hold any number of items
+    * items must be of the same type, can't mix elements of different types
+    * ~;~ separating list items
+    #+BEGIN_SRC ocaml
+      let languages = ["OCaml";"Perl";"C"];;
+    #+END_SRC
+
+**** ~List~ Module
+     1. ~List.length~ :: compute the length of a list
+	#+BEGIN_SRC ocaml
+          List.length languages;;
+	#+END_SRC
+	- type: ~string list~
+     2. ~List.map~ :: transform the elements of a list
+	#+BEGIN_SRC ocaml
+          List.map languages ~f:String.length;;
+	#+END_SRC
+	- /labeled argument/ ~~f~, specified by name rather than by position
+
+**** ~::~ constructing lists
+     - create a new and extended list
+     #+BEGIN_SRC ocaml
+       "French" :: "Spanish" :: languages;;
+         
+     #+END_SRC
+     - bracket notation, syntatic sugar for ~::~
+       #+BEGIN_SRC ocaml
+         1 :: 2 :: 3 :: [];;
+       #+END_SRC
+     - ~@~ :: list concatenation operator
+       #+BEGIN_SRC ocaml
+         [1;2;3] @ [4;5;6]
+       #+END_SRC
+     
+**** List patterns using match
+
+**** Recursive list functions
+
+*** Options
