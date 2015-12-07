@@ -94,8 +94,8 @@
 	#+BEGIN_SRC ocaml
           List.length languages;;
 	#+END_SRC
-	- type: ~string list~
-     2. ~List.map~ :: transform the elements of a list
+        - type: ~string list~
+     3. ~List.map~ :: transform the elements of a list
 	#+BEGIN_SRC ocaml
           List.map languages ~f:String.length;;
 	#+END_SRC
@@ -103,10 +103,9 @@
 
 **** ~::~ constructing lists
      - create a new and extended list
-     #+BEGIN_SRC ocaml
-       "French" :: "Spanish" :: languages;;
-         
-     #+END_SRC
+       #+BEGIN_SRC ocaml
+         "French" :: "Spanish" :: languages;;
+       #+END_SRC
      - bracket notation, syntatic sugar for ~::~
        #+BEGIN_SRC ocaml
          1 :: 2 :: 3 :: [];;
@@ -117,6 +116,12 @@
        #+END_SRC
      
 **** List patterns using match
+     * based on ~[]~, ~::~
+       #+BEGIN_SRC ocaml
+         let my_favorite_language (my_favorite :: the_rest) =
+           my_favorite
+         ;;
+       #+END_SRC
 
 **** Recursive list functions
 
