@@ -91,14 +91,14 @@
 
 **** ~List~ Module
      1. ~List.length~ :: compute the length of a list
-	#+BEGIN_SRC ocaml
+        #+BEGIN_SRC ocaml
           List.length languages;;
-	#+END_SRC
+        #+END_SRC
         - type: ~string list~
      3. ~List.map~ :: transform the elements of a list
-	#+BEGIN_SRC ocaml
+        #+BEGIN_SRC ocaml
           List.map languages ~f:String.length;;
-	#+END_SRC
+        #+END_SRC
 	- /labeled argument/ ~~f~, specified by name rather than by position
 
 **** ~::~ constructing lists
@@ -122,7 +122,41 @@
            my_favorite
          ;;
        #+END_SRC
+       - equivalent ~car~ and ~cdr~ in Scheme
+       - pattern not exhaustive, (empty list will fail)
+     * *Comments*, bounded in ~(* *)~
 
 **** Recursive list functions
+     #+BEGIN_SRC ocaml
+       let rec sum l =
+         match l with
+         | [] -> 0
+         | hd :: tl -> hd + sum tl
+       ;;
+     #+END_SRC
+     * pattern matching, separate base case and inductive case
 
 *** Options
+    #+BEGIN_SRC ocaml
+      let divide x y =
+        if y = 0 then None else Some (x/y);;
+    #+END_SRC
+    * type: ~int -> int -> int option~
+      * value may or may not be present
+      * ~Some~, ~None~ constructors bulding optional values
+    * pattern matching, to examine content of an option
+      #+BEGIN_SRC ocaml
+        let log_entry maybe_time message =
+          let time =
+            match maybe_time with
+            | Some x -> x
+            | None -> Time.now()
+          in
+          Time.to_sec_string ^ " .. " ^ message
+        ;;
+          log_entry (Some Time.epoch) "A long long time ago";;
+          log_entry None "Up to the minute";;
+      #+END_SRC
+      * type: ~Time.t option -> string -> string~
+      * ~^~ string concatenation
+    * ~let~ ~in~
