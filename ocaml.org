@@ -160,3 +160,16 @@
       * type: ~Time.t option -> string -> string~
       * ~^~ string concatenation
     * ~let~ ~in~
+    * *STANDARD WAY* to encode a value that might not be there
+    
+** Records and Variants
+
+** Imperative Programming
+
+*** Arrays
+
+*** Mutable Record Fields
+
+*** Refs
+
+*** For and While Loopsx
