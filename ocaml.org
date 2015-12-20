@@ -223,9 +223,77 @@
 ** Imperative Programming
 
 *** Arrays
+    * declaration
+      #+BEGIN_SRC ocaml
+        let numbers = [| 1; 2; 3; 4 |];;
+      #+END_SRC
+    * modifying, index starts at 0, ~.(i)~ refer to element, ~<-~ modification
+      #+BEGIN_SRC ocaml
+        numbers.(2) <- 4;;
+      #+END_SRC
 
 *** Mutable Record Fields
+    * declaration
+      #+BEGIN_SRC ocaml
+        type running_sum =
+          {
+            mutable sum: float;
+            mutable sum_sq: float;
+            mutable samples: int;
+          }
+        ;;
+      #+END_SRC
+    * ~create~, ~update~
+      #+BEGIN_SRC ocaml
+        let create () = { sum = 0.; sum_sq = 0.; samples = 0 }
+        let update rsum x =
+          rsum.samples <- rsum.samples + 1;
+          rsum.sum <- rsum.sum +. x;
+          rsum.sum_sq <- rsum.sum_sq +. x *. x
+
+        let mean rsum = rsum.sum /. float rsum.samples
+        let stdev rsum =
+          sqrt (rsum.sum_sq /. float rsum.samples
+                -. (rsum.sum /. float rsum.samples) ** 2.)
+        ;;
+      #+END_SRC
 
 *** Refs
+    * single mutable value, /record/ wih a single mutable field
+    * declaration
+      #+BEGIN_SRC ocaml
+        let x = ref 0;;
+      #+END_SRC
+    * getter
+      #+BEGIN_SRC ocaml
+        !x
+      #+END_SRC
+    * setter
+      #+BEGIN_SRC ocaml
+        x := !x + 1;;
+      #+END_SRC
 
-*** For and While Loopsx
+*** For and While Loops
+    * ~for~ loop
+      #+BEGIN_SRC ocaml
+        let permute array =
+          let length = Array.length array in
+          for i = 0 to length - 2 do
+            let j = i + Random.int (length - i) in
+            let tmp = array.(i) in
+            array.(i) <- array.(j);
+            array.(j) <- tmp
+          done
+        ;;
+      #+END_SRC
+    * ~while~ loop
+      #+BEGIN_SRC ocaml
+        let find_first_negative_entry array =
+          let pos = ref 0 in
+          while !pos < Array.length array && array.(!pos) >= 0 do
+            pos := !pos + 1
+          done;
+          if !pos = Array.length array then None else Some !pos
+        ;;
+      #+END_SRC
+
