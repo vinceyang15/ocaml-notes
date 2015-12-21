@@ -1,0 +1,20 @@
+* Variables and Functions
+** Variables
+
+*** Pattern Matching and let
+
+** Functions
+*** Anonymous Functions
+
+*** Multiargument Functions
+
+*** Recursive Functions
+
+*** Prefix and Infix Operators
+
+*** Declaring Functions with Function
+
+*** Labeled Arguments
+
+*** Optional Arguments
+
