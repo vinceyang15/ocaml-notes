@@ -1,5 +1,36 @@
 * Variables and Functions
 ** Variables
+   * start with ~[a-z_]~
+   * ~let~ keyword
+   * /scope/
+     * top-level, ~let x = 3;;~
+     * ~let <variable> = <expr1> in <expr2>~
+       * evaluates /expr1/
+       * evaluates /expr2/, with /variable/ bound to value of /expr1/
+	 #+BEGIN_SRC ocaml
+           let languages = "Ocaml,Perl,C++,C"
+           let dashed_languages =
+             let language_list = String.split languages ~on:',' in
+             String.concat ~sep:"-" language_list
+           ;;
+	 #+END_SRC
+     * /shadow/, ~let~ binding in an inner scope hide the definition from an outer scope
+       #+BEGIN_SRC ocaml
+         let languages = "Ocaml,Perl,C++,C"
+         let dashed_languages =
+           let languages = String.split languages on:',' in
+           String.concat ~sep:"-" languages
+         ;;
+       #+END_SRC
+   * nested ~let/in~ expression
+     #+BEGIN_SRC ocaml
+       let area_of_ring inner_radius outer_radius =
+         let pi = acos (-1.) in
+         let area_of_circle r= pi *. r *. r in
+         area_of_circle outer_radius - area_of_circle inner_radius
+       ;;
+     #+END_SRC
+   * ~let~ binding, *Immutable*
 
 *** Pattern Matching and let
 
