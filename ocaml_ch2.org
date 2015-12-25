@@ -32,7 +32,21 @@
      #+END_SRC
    * ~let~ binding, *Immutable*
 
-*** Pattern Matching and let
+*** Pattern Matching and ~let~
+    * /patterns/ on the lefthand side
+      #+BEGIN_SRC ocaml
+        let (ints,strings) = List.unzip [(1,"one"); (2,"two"); (3,"three")];;
+      #+END_SRC
+    * /irrefutable pattern/, any value of the type in question is guaranteed to match the pattern
+      * *Tuple*, *Record*, irrefutable
+      * *List* not irrefutable
+        #+BEGIN_SRC ocaml
+          let upcase_first_entry line =
+            match String.split ~on:',' line with
+            | [] -> assert false          (* String.split returns at least one element *)
+            | first :: rest -> String.concat ~sep:"," (String.uppercase first :: rest)
+          ;;
+        #+END_SRC 
 
 ** Functions
 *** Anonymous Functions
