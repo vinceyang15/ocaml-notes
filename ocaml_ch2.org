@@ -50,16 +50,116 @@
 
 ** Functions
 *** Anonymous Functions
+    * declaration
+      #+BEGIN_SRC ocaml
+        (fun x -> x + 1);;
+      #+END_SRC
+    * application
+      #+BEGIN_SRC ocaml
+        (fun x -> x + 1) 7;;
+      #+END_SRC
+    * pass to anotehr function
+      #+BEGIN_SRC ocaml
+        List.map ~f:(fun x -> x + 1) [1;2;3];;
+      #+END_SRC
+    * stuff into data structure
+      #+BEGIN_SRC ocaml
+        let increments = [ (fun x -> x + 1); (fun x -> x + 2) ] ;;
+          
+          List.map ~f:(fun g -> g 5) increments;;
+      #+END_SRC
+      * ~(fun g -> g 5)~ higher order function
+        * takes a function as an argument
+	* applies that function to number ~5~
+    * return function from other function
+      #+BEGIN_SRC ocaml
+        let plusone = (fun x -> x + 1);;
+          
+          plusone 3;;
+      #+END_SRC
 
 *** Multiargument Functions
+    * declaration
+      #+NAME: normal abs_diff
+      #+BEGIN_SRC ocaml
+        let abs_diff x y = abs (x - y);;
+      #+END_SRC
+      * type: ~int -> int -> int~
+    * /Currying/
+      #+BEGIN_SRC ocaml
+        let abs_diff =
+          (fun x -> (fun y -> abs (x - y)));;
+      #+END_SRC
+      * type: ~int -> (int -> int)~
+      * equivalent to <<normal abs_diff>>
+    * /Partial Application/
+      #+BEGIN_SRC ocaml
+        let dist_from_3 = abs_diff 3;;
+
+          dist_from_3 8;;
+      #+END_SRC
+    * /Currying/ anonymous function
+      #+BEGIN_SRC ocaml
+        let abs_diff = (fun x y -> abs (x - y));;
+      #+END_SRC
+    * use *Tuple* to write multiargument function
+      #+BEGIN_SRC ocaml
+        let abs_diff (x,y) = abs (x - y);;
+          abs_diff (3,4);;
+      #+END_SRC
+      * type: ~int * int -> int = <fun>~
 
 *** Recursive Functions
+    * declaration, ~let rec~
+      #+BEGIN_SRC ocaml
+        let rec find_first_stutter list =
+          match list with
+          | [] | [_] ->
+                  None
+          | x :: y :: tl ->
+             if x = y then Some x else find_first_stutter (y::tl)
+        ;;      
+      #+END_SRC
+      * /or-pattern/, ~| [] | [_]~
+    * ~let rec~ with ~and~, multiple mutually recursive values
+      #+BEGIN_SRC ocaml
+        let rec is_even x =
+          if x = 0 then true else is_odd (x - 1)
+        and is_odd x =
+          if x = 0 then false else is_even (x - 1)
+        ;;
+
+          List.map ~f:is_even [0;1;2;3;4;5];;
+          List.map ~f:is_odd [0;1;2;3;4;5];;
+      #+END_SRC
+    * distinguish between ~let~ and ~let rec~
+      * type-inference algo, mutually recursive harder to reason
 
 *** Prefix and Infix Operators
+    #+BEGIN_SRC ocaml
+      Int.max 3 4 (* prefix *);;
+      3 + 4 (* infix *);;
+      (+) 3 4 (* equivalent to 3 + 4 *);;
+      List.map ~f:((+) 3) [4;5;6];;      
+    #+END_SRC
+    * function treated syntactically as an operator: 
+      * ~! $ % & * + - . / : < = > ? @ ^ | ~~
+      * ~or~
+      * ~mod~
+      * ~lsl~ "logical shift left"
+    * define / redefine operator
+      #+BEGIN_SRC ocaml
+        let (+!) (x1,y1) (x2,y2) = (x1 + x2, y1 + y2);;
+        (3,2) +! (-2,4);;
+      #+END_SRC
+    * ~*~, ~(***)~ reads as a _comment_, put spaces around any operator beginning and ending with ~*~
+      #+BEGIN_SRC ocaml
+        let ( *** ) x y = (x ** y) ** y;;
+      #+END_SRC
+
 
 *** Declaring Functions with Function
 
 *** Labeled Arguments
 
 *** Optional Arguments
-
