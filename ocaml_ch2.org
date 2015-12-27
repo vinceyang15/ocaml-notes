@@ -198,7 +198,6 @@
         #+END_SRC
         * partial application =List.iter ~f:print_endline=
         * works since =|>= is left associative
-
       * without =|>=
         #+BEGIN_SRC ocaml
           let split_path = String.split ~on:':' path in
@@ -207,8 +206,52 @@
           ;;
         #+END_SRC
 
-*** Declaring Functions with Function
+*** Declaring Functions with =function=
+    * =function=
+      #+BEGIN_SRC ocaml
+        let some_or_zero = function
+          | Some x -> x
+          | None -> 0
+        ;;
+
+          List.map ~f:some_or_zero [Some 3; None; Some 4];;
+      #+END_SRC
+      * type: ~int option -> int = <fun>~
+      * equivalent to:
+        #+BEGIN_SRC ocaml
+          let some_or_zero num_opt =
+            match num_opt with
+            | Some x -> x
+            | None -> 0
+          ;;
+        #+END_SRC
+    * combined ith /curried/ function
+      #+BEGIN_SRC ocaml
+        let some_or_default default = function
+          | Some x -> x
+          | None -> default
+        ;;
+
+        some_or_default 3 (Some 5);;
+      #+END_SRC
+      * type ~'a -> 'a option -> 'a = <fun>~
 
 *** Labeled Arguments
+    * identify a function argument by name
+      #+BEGIN_SRC ocaml
+        let ratio ~num ~denom = float num /. float denom;;
+
+        ratio ~num:3 ~denom:10;;
+      #+END_SRC
+    * /label punning/, drop the text after =:=
+      #+BEGIN_SRC ocaml
+        let num = 3 in
+            let denom = 4 in
+            ratio ~num ~denom;;
+      #+END_SRC
+
+**** Higher-order functions and labels
+     * higher-order function, order of labeled arguments matters
 
 *** Optional Arguments
+    * 
