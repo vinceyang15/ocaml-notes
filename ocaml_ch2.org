@@ -156,7 +156,56 @@
       #+BEGIN_SRC ocaml
         let ( *** ) x y = (x ** y) ** y;;
       #+END_SRC
+    * Precedence and Associativity
+      | Operator prefix                                      | Associativity      |
+      |------------------------------------------------------+--------------------|
+      | ~!...~, ~?...~, =~...=                               | Prefix             |
+      | ~.~, ~.(~, ~.[~                                      | -                  |
+      | function application, constructor, ~assert~, ~lazy~  | Left associative   |
+      | ~-~, ~-.~                                            | Prefix             |
+      | ~**...~, ~lsl~, ~lsr~, ~asr~                         | Right associative  |
+      | ~*...~, ~/...~, ~%...~, ~mod~, ~land~, ~lor~, ~lxor~ | Left associative   |
+      | ~+...~, ~-...~                                       | Left associative   |
+      | ~::~                                                 | Right associative  |
+      | ~@...~, ~^...~                                       | Right associative  |
+      | ~=...~, ~<...~, ~>...~, ~&...~, ~$...~, ~\vert...~   | Left associative   |
+      | ~&~, ~&&~                                            | Right associative  |
+      | ~or~, ~\vert\vert~                                   | Right associative  |
+      | ~,~                                                  | -                  |
+      | ~<-~, ~:=~                                           | Right associative  |
+      | ~if~                                                 | -                  |
+      | ~;~                                                  | Right associcative |
+      * special case:
+        * =-=, =-.=, integer and floating-point subtraction
+	  1. *prefix*, negation
+	  2. *infix*, substraction
+	  3. negation has lower precedence than function application
+	     #+BEGIN_SRC ocaml
+               Int.max 3 (-4);; (* wrap negative values in parentheses *)
+	     #+END_SRC
+    * sequencing operator =|>=
+      #+BEGIN_SRC ocaml
+        let (|>) x f = f x ;;
+      #+END_SRC
+      * usage
+        #+BEGIN_SRC ocaml
+          let path = "/usr/bin:/usr/local/bin:/bin:/sbin";;
 
+            String.split ~on:':' path
+            |> List.dedup ~compare:String.compare
+            |> List.iter ~f:print_endline
+            ;;
+        #+END_SRC
+        * partial application =List.iter ~f:print_endline=
+        * works since =|>= is left associative
+
+      * without =|>=
+        #+BEGIN_SRC ocaml
+          let split_path = String.split ~on:':' path in
+              let deduped_path = List.dedup ~compare:String.compare split_path in
+              List.iter ~f:print_endline deduped_path
+          ;;
+        #+END_SRC
 
 *** Declaring Functions with Function
 
