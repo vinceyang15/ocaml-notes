@@ -177,10 +177,10 @@
       | ~;~                                                  | Right associcative |
       * special case:
         * =-=, =-.=, integer and floating-point subtraction
-	  1. *prefix*, negation
-	  2. *infix*, substraction
-	  3. negation has lower precedence than function application
-	     #+BEGIN_SRC ocaml
+          1. *prefix*, negation
+          2. *infix*, substraction
+          3. negation has lower precedence than function application
+             #+BEGIN_SRC ocaml
                Int.max 3 (-4);; (* wrap negative values in parentheses *)
 	     #+END_SRC
     * sequencing operator =|>=
