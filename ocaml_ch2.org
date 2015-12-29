@@ -91,7 +91,7 @@
           (fun x -> (fun y -> abs (x - y)));;
       #+END_SRC
       * type: ~int -> (int -> int)~
-      * equivalent to <<normal abs_diff>>
+      * equivalent to [[normal abs_diff]]
     * /Partial Application/
       #+BEGIN_SRC ocaml
         let dist_from_3 = abs_diff 3;;
