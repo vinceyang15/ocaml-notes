@@ -1,4 +1,4 @@
-* Variables and Functions
+#+Title: Chapter2 Variables and Functions
 ** Variables
    * start with ~[a-z_]~
    * ~let~ keyword
@@ -234,7 +234,7 @@
 
         some_or_default 3 (Some 5);;
       #+END_SRC
-      * type: src_ocaml{'a -> 'a option -> 'a = <fun>}
+      * type: ~`a -> `a option -> `a = <fun>~
 
 *** Labeled Arguments
     * identify a function argument by name
