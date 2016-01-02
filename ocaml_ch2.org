@@ -254,4 +254,84 @@
      * higher-order function, order of labeled arguments matters
 
 *** Optional Arguments
-    * 
+    * optional argument
+      * labeled argument
+      * caller opts to provide
+      * passed in using same syntax as labeled argument
+      * ~?~ mark argument as optional
+        #+BEGIN_SRC ocaml
+          let concat ?sep x y =
+            let sep = match sep with None -> "" | Some x -> x in
+            x ^ sep ^ y
+          ;;
+
+            concat "foo" "bar" (* without the optional argument *);;
+            concat ~sep:":" "foo" "bar" (* with the optional arugment *);;
+              
+        #+END_SRC
+      * More concise ~concat~
+        #+BEGIN_SRC ocaml
+          let concat ?(sep="") x y = x ^ sep ^ y ;;
+        #+END_SRC
+    * Advantages
+      * define function with multiple args that users can often ignore
+      * extend API with new functionality without changing current code
+    * Disadvantages
+      * caller unaware there is a choice
+
+**** Explicit passing of an optional argument
+     * explicit pass in ~Some~
+       #+BEGIN_SRC ocaml
+         concat ~sep:":" "foo" "bar" (* provide the optional argument *);;
+         concat ?sep:(Some ":") "foo" "bar" (* pass an explicit [Some] *);;
+       #+END_SRC 
+     * explicit pass in ~None~
+       #+BEGIN_SRC ocaml
+         concat "foo" "bar" (* don't provide the optional argument *);;
+         concat ?sep:None "foo" "bar" (* explicitly pass `None` *);;
+       #+END_SRC
+     * Use Case: wrapper function mimicing optional args of the function it's wrapping
+       #+BEGIN_SRC ocaml
+         let uppercase_concat ?(sep="") a b = concat ~sep (String.uppercase a) b ;;
+
+         uppercase_concat "foo" "bar";;
+         uppercase_concat "foo" "bar" ~sep:":";;
+       #+END_SRC
+       * drawback:
+	 * forced to set the default value ~sep~
+	 * late change ~concat~ default behaviour, need to change ~uppercase_concat~ as well
+       * fix up
+	 #+BEGIN_SRC ocaml
+           let uppercase_concat ?sep a b = concat ?sep (String.uppercase a) b;;         
+	 #+END_SRC
+         * calling ~uppercase_concat~ without ~seq~, explicit ~None will be passed to concat
+
+**** Inference of labeled and optional arguments
+     #+BEGIN_SRC ocaml
+        let numeric_deriv ~delta ~x ~y ~f =
+           let x' = x +. delta in
+           let y' = y +. delta in
+           let base = f ~x ~y in
+           let dx = (f ~x:x' ~y -. base) /. delta in
+           let dy = (f ~x ~y:y' -. base) /. delta in
+           (dx,dy)
+         ;;
+     #+END_SRC
+     * type: ~val numeric_deriv : delta:float -> x:float -> y:float -> f:(x:float -> y:float -> float) -> float * float = <fun>~
+     * However, ~f~ could be
+       1. ~y:float -> x:float -> float~
+       2. ~x:float -> y:float -> float~
+       3. ~?x:float -> y:float -> float~
+     * Compiler use heuristic
+       1. prefer *labels* to *options*
+       2. choose the *order* of args showing up in the source code
+     
+
+**** Optional arguments and partial application
+     * *optional arg* /erased/
+       #+BEGIN_SRC ocaml
+         let prepend_pound = concat "# ";;
+         prepend_pound "a BASH comment";;
+       #+END_SRC
+       * if we try to pass in the optional arg, it will be rejected
+     * *optional argument* /erased/, as soon as the first positional argument defined /after/ it is passed in 
