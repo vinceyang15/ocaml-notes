@@ -1,8 +1,62 @@
 #+TITLE: Lists and Patterns
+#+AUTHOR: Yang Xi
 
 * List Basics
+  * *List*
+    1. immutable, finite sequence
+    2. element of the same type
+  * Generating Lists, ~::~ notation
+    #+BEGIN_SRC ocaml
+      [1;2;3];;
+      1 :: (2 :: (3 :: [])) ;;
+      1 :: 2 :: 3 :: [] ;;
+    #+END_SRCpp
+    * ~::~ right associative
+    * ~[]~ empty list, terminate a list
+  * ~[]~, polymorphic
+    #+BEGIN_SRC ocaml
+      let empty = [];;
+
+      3 :: empty;;
+      "three" :: empty;;
+    #+END_SRC
 
 * Using Patterns to Extract Data from a List
+  * Use ~match~ to read data
+    #+BEGIN_SRC ocaml
+      let rec sum l =
+        match l with
+        | [] -> 0
+        | hd :: tl -> hd + sum tl
+      ;;
+
+        sum [1;2;3];;
+        sum [];;
+    #+END_SRC
+  * ~match~, allows to name substructures within the data structure being matched
+    * may lead to confusion
+      #+BEGIN_SRC ocaml
+        let rec drop_value l to_drop =
+          match l with
+          | [] -> []
+          | to_drop :: tl -> drop_value tl to_drop
+          | hd :: tl -> hd :: drop_value tl to_drop
+        ;;
+      #+END_SRC
+      * ~| to_drop :: tl -> drop_value tl to_drop~
+        * doesn't mean a check that the first element equals ~to_drop~
+        * causes a new variable ~to_drop~, bound to first element of list
+        * use ordinary ~if~
+          #+BEGIN_SRC ocaml
+            let rec drop_value l to_drop =
+              match l with
+              | [] -> []
+              | hd :: tl ->
+                 let new_tl = drop_value tl to_drop in
+                 if hd = to_drop then new_tl else hd :: new_tl
+            ;;
+          #+END_SRC
+
 
 * Limitations (and Blessings) of Pattern Matching
 
@@ -12,6 +66,8 @@
 
 * Using the List Module Effectively
 
-** Tail Recursion
+** More Useful List Functions
+    
+* Tail Recursion
 
-** Terser and Faster Patterns
+* Terser and Faster Patterns
