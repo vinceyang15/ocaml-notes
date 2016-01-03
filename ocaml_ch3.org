@@ -1,0 +1,17 @@
+#+TITLE: Lists and Patterns
+
+* List Basics
+
+* Using Patterns to Extract Data from a List
+
+* Limitations (and Blessings) of Pattern Matching
+
+** Performance
+
+** Detecting Errors
+
+* Using the List Module Effectively
+
+** Tail Recursion
+
+** Terser and Faster Patterns
