@@ -43,7 +43,7 @@
           | hd :: tl -> hd :: drop_value tl to_drop
         ;;
       #+END_SRC
-      * ~| to_drop :: tl -> drop_value tl to_drop~
+      * ~to_drop :: tl -> drop_value tl to_drop~
         * doesn't mean a check that the first element equals ~to_drop~
         * causes a new variable ~to_drop~, bound to first element of list
         * use ordinary ~if~
@@ -103,6 +103,19 @@
    * ~match~ checks exhaustiveness
 
 * Using the List Module Effectively
+  * ~List.map~
+    * takes a list and a function for transforming elements
+    * returns a new list with transformed elements
+    #+BEGIN_SRC ocaml
+      List.map ~f:String.length ["Hello"; "World"];;
+    #+END_SRC
+  * ~List.map2_exn~
+    * takes two lists and a function for combining them
+    * if length of one list differs from another, throw exception
+    #+BEGIN_SRC ocaml
+      List.map2_exn ~f:Int.max [1;2;3] [3;2;1];;
+    #+END_SRC  
+  * ~List.fold~
 
 ** More Useful List Functions
     
