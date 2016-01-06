@@ -116,8 +116,23 @@
       List.map2_exn ~f:Int.max [1;2;3] [3;2;1];;
     #+END_SRC  
   * ~List.fold~
+    * args: a list, initial accumulator value, function updating the accumulator
+    #+BEGIN_SRC ocaml
+      List.fold ~init:0 ~f:(+) [1;2;3;4];;
+    #+END_SRC
+    * reverse list
+      #+BEGIN_SRC ocaml
+        List.fold ~init:[] ~f:(fun list x -> x :: list) [1;2;3;4];;
+      #+END_SRC
 
 ** More Useful List Functions
+   * ~List.reduce~
+   * ~List.filter~
+   * ~List.filter_map~
+   * ~List.partition_tf~
+   * ~List.append~
+     * ~@~ opeartor
+     * ~List.concat~
     
 * Tail Recursion
 
