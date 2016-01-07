@@ -127,7 +127,16 @@
 
 ** More Useful List Functions
    * ~List.reduce~
+     * returns an optional result
+       #+BEGIN_SRC ocaml
+         List.reduce ~f:(+) [1;2;3;4;5];;
+         List.reduce ~f:(+) [];;
+       #+END_SRC
    * ~List.filter~
+     * restrict o a subset
+       #+BEGIN_SRC ocaml
+         List.filter ~f:(fun x -> x mod 2 = 0) [1;2;3;4;5];;
+       #+END_SRC
    * ~List.filter_map~
    * ~List.partition_tf~
    * ~List.append~
