@@ -137,8 +137,32 @@
        #+BEGIN_SRC ocaml
          List.filter ~f:(fun x -> x mod 2 = 0) [1;2;3;4;5];;
        #+END_SRC
-   * ~List.filter_map~
+   * ~List.filter_map~, transform and filter
+     #+BEGIN_SRC ocaml
+       List.filter_map
+         (Sys.ls_dir ".")
+         ~f:(fun fname ->
+             match String.rsplit2 ~on:'.' fname with
+             | None | Some ("",_) -> None
+             | Some (_,ext) -> Some ext)
+       |> List.dedup
+       ;;
+     #+END_SRC
+     * ~String.rsplit2~, split a string on the rightmost appearance of a given character
+     * ~Sys.ls_dir~, get a directory listing
    * ~List.partition_tf~
+     * takes _a list_, _a function_ computing Boolean condition on the list elements
+     * returns two list
+     #+BEGIN_SRC ocaml
+       let is_ocaml_source s =
+         match String.rsplit2 s ~on:'.' with
+         | Some (_,("ml"|"mli")) -> true
+         | _ -> false
+       ;;
+
+       let (ml_files, other_files) =
+         List.partition_tf (Sys.ls_dir ".") ~f:is_ocaml_source;;
+     #+END_SRC
    * ~List.append~
      * ~@~ opeartor
      * ~List.concat~
