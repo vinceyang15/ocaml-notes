@@ -154,18 +154,41 @@
      * takes _a list_, _a function_ computing Boolean condition on the list elements
      * returns two list
      #+BEGIN_SRC ocaml
-       let is_ocaml_source s =
-         match String.rsplit2 s ~on:'.' with
-         | Some (_,("ml"|"mli")) -> true
-         | _ -> false
-       ;;
+     let is_ocaml_source s =
+     match String.rsplit2 s ~on:'.' with
+     | Some (_,("ml"|"mli")) -> true
+     | _ -> false
+     ;;
 
-       let (ml_files, other_files) =
-         List.partition_tf (Sys.ls_dir ".") ~f:is_ocaml_source;;
+     let (ml_files, other_files) =
+     List.partition_tf (Sys.ls_dir ".") ~f:is_ocaml_source;;
      #+END_SRC
-   * ~List.append~
+   * Combining lists  
+     * ~List.append~
+       #+BEGIN_SRC ocaml
+         List.append [1;2;3] [4;5;6];;
+       #+END_SRC
      * ~@~ opeartor
+       #+BEGIN_SRC ocaml
+         [1;2;3] @ [4;5;6];;
+       #+END_SRC
      * ~List.concat~
+       #+BEGIN_SRC ocaml
+         List.concat [[1;2];[3;4;5];[6];[]];;
+       #+END_SRC
+       * compute a recursive listing of a directory tree:
+         #+BEGIN_SRC ocaml
+           let rec ls_rec s =
+             if Sys.is_file_exn ~follow_symlinks:true s
+             then [s]
+             else
+               Sys.ls_dir s
+               |> List.map ~f:(fun sub -> ls_rec (s ^/ sub))
+               |> List.concat
+           ;;
+         #+END_SRC
+         * ~^/~, adding a new element to a string representing a file path
+         * ~List.concat_map~ combination of ~List.map~ and ~List.concat~ 
     
 * Tail Recursion
 
