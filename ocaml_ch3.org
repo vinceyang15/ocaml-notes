@@ -191,5 +191,41 @@
          * ~List.concat_map~ combination of ~List.map~ and ~List.concat~ 
     
 * Tail Recursion
+  #+BEGIN_SRC ocaml
+    let rec length = function
+      | [] -> 0
+      | _ :: tl -> 1 + length tl
+    ;;
+
+    let make_list n = List.init n ~f:(fun x -> x);;
+  #+END_SRC
+  * ~List.init~, 
+    * takes _an integer_ ~n~ and _a function_ ~f~,
+    * return a list of length ~n~, each element create by calling ~f~
+  * Problem: when ~n~ is large, stack overflow
+  * /tail call/, /tail-call optimization/, /tail recursive/
+    #+BEGIN_SRC ocaml
+      let rec length_plus_n l n =
+        match l with
+        | [] -> n
+        | _ :: tl -> length_plus_n tl (n + 1)
+      ;;
+
+      let length l = length_plus_n l 0;;
+    #+END_SRC
+    * ~n~, accumulator in which the answer is built up
+    * /tail call/, /caller/ invokes /callee/ when /caller/ doesn't do anything with value returned other than return it
+  
 
 * Terser and Faster Patterns
+  * ~function~ eliminate explicit ~match~
+  * ~as~, declare a name for the thing matched by a pattern or subpattern
+  * ~when~ clause, add an extra precondition to a pattern
+  #+BEGIN_SRC ocaml
+    let rec destutter = function
+      | [] | [_] as l -> l
+      | hd :: (hd' :: _ as l) when hd = hd' -> destutter l
+      | hd :: tl -> hd :: destutter tl
+    ;;
+  #+END_SRC
+  * ~when~ downsides, abitlity of the compiler to determine if a ~match~ is exhaustive
