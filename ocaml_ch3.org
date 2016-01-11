@@ -228,4 +228,4 @@
       | hd :: tl -> hd :: destutter tl
     ;;
   #+END_SRC
-  * ~when~ downsides, abitlity of the compiler to determine if a ~match~ is exhaustive
+  * ~when~ downsides, may lose abitlity of the compiler to determine if a ~match~ is exhaustive
