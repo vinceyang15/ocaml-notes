@@ -1,0 +1,34 @@
+#+TITLE: Lists and Patterns
+#+AUTHOR: Yang Xi
+
+* Multifile Programs and Modules
+
+* Signatures and Abstract Types
+
+* Concrete Types in Signatures
+
+* Nested Modules
+
+* Opening Modules
+
+* Including Modules
+
+* Common Errors with Modules
+
+** Type Mismatches
+
+** Missing Definitions
+
+** Type Definition Mismatches
+
+** Cyclic Dependencies
+
+* Designing with Modules
+
+** Expose Concrete Types Rarely
+
+** Design for the Call Site
+
+** Create Uniform Interfaces
+
+** Interfaces before Implementation
