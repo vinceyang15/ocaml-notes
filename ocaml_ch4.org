@@ -1,6 +1,48 @@
 #+TITLE: Lists and Patterns
 #+AUTHOR: Yang Xi
 
+* Single-File Programs
+  * ~List.Assoc~ module
+    #+BEGIN_SRC ocaml
+      let assoc = [("one", 1); ("two", 2); ("three", 3)];;
+    #+END_SRC
+    * ~List.Assoc.find~, looks up a key
+      #+BEGIN_SRC ocaml
+        List.Assoc.find assoc "two";;
+      #+END_SRC
+    * ~List.Assoc.add~, doesn't modify the original list
+      #+BEGIN_SRC ocaml
+        List.Assoc.add assoc "two" 4;;
+      #+END_SRC
+  * ~freq.ml~
+    #+BEGIN_SRC ocaml
+      open Core.Std
+
+      let build_counts () =
+        In_channel.fold_lines
+          stdin
+          ~init:[]
+          ~f:(fun counts line ->
+              let count =
+                match List.Assoc.find counts line with
+                | None -> 0
+                | Some x -> x
+              in
+              List.Assoc.add counts line (count + 1)
+             )
+
+      let () =
+        build_counts ()
+        |> List.sort ~cmp:(fun (_,x) (_,y) -> Int.descending x y)
+        |> (fun l -> List.take l 10)
+        |> List.iter ~f:(fun (line,count) -> printf "%3d: %s\n" count line)
+    #+END_SRC
+    * ~let () =~ acts as *main* function
+    * build, ~ocamlfind ocamlc -linkpkg -thread -package core freq.ml -o freq.byte~
+      * /ocamlfind/, invokes other parsts of OCaml toolchain (/ocamlc/)
+      * ~-linkpkg~, asks /ocamlfind/ to link packages
+      * ~-thread~, turns on threading support
+
 * Multifile Programs and Modules
 
 * Signatures and Abstract Types
