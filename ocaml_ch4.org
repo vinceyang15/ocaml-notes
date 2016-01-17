@@ -44,8 +44,80 @@
       * ~-thread~, turns on threading support
 
 * Multifile Programs and Modules
+  * ~counter.ml~
+    #+BEGIN_SRC ocaml
+      open Core.Std
+
+      let touch t s =
+        let count =
+          match List.Assoc.find t s with
+          | None -> 0
+          | Some x -> x
+        in
+        List.Assoc.add t s (count + 1)
+    #+END_SRC
+    * ~counter.ml~, compiled int module ~Counter~
+      * module name derived from filename
+      * module name is alway *capitalized*
 
 * Signatures and Abstract Types
+  * /interface/, /signature/, /module type/, hide implementation details
+    * ~filename.ml~ constrained by ~filename.mli~
+  * ~val~ declaration: ~val <identifier> : <type>~
+    * ~counter.ml~ signature:
+      #+BEGIN_SRC ocaml
+        open Core.Std
+
+        val touch : (string * int) list -> string -> (string * int) list
+      #+END_SRC
+  * /abstract/ type, name is exposed in the interface, but not its definition
+    #+BEGIN_SRC ocaml
+      open Core.Std
+
+      type t
+
+      val empty : t
+
+      val touch : t -> string -> t
+
+      val to_list : t -> (string * int) list
+    #+END_SRC
+    * rewrite of ~counter.ml~
+      #+BEGIN_SRC ocaml
+        open Core.Std
+
+        type t = (string * int) list
+
+        let empty = []
+
+        let to_list x = x
+
+        let touch t s =
+          let count =
+            match List.Assoc.find t s with
+            | None -> 0
+            | Some x -> x
+          in
+          List.Assoc.add t s (count + 1)
+      #+END_SRC
+    * optimize ~Counter~, use ~Map~
+      #+BEGIN_SRC ocaml
+        open Core.Std
+
+        type t = int String.Map.t
+
+        let empty = String.Map.empty
+
+        let to_list t = Map.to_list t
+
+        let touch t s =
+          let count =
+            match Map.find t s with
+            | None -> 0
+            | Some x -> x
+          in
+          Map.add t ~key:s ~data:(count + 1)
+      #+END_SRC
 
 * Concrete Types in Signatures
 
